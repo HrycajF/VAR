@@ -21,7 +21,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
-public class FileServerJMS implements MessageListener {
+public class FileServer implements MessageListener {
 	private static final String DESTINATION = "files";
 
 	private String directory;
@@ -31,7 +31,7 @@ public class FileServerJMS implements MessageListener {
 	private MessageProducer mMessageProducer;
 	private Destination mQueue;
 
-	public FileServerJMS(String directory) throws NamingException, JMSException {
+	public FileServer(String directory) throws NamingException, JMSException {
 		this.directory = directory;
 		Context ctx = new InitialContext();
 		ConnectionFactory mConnectionFactory = (ConnectionFactory) ctx.lookup("ConnectionFactory");
@@ -108,10 +108,10 @@ public class FileServerJMS implements MessageListener {
 	}
 
 	public static void main(String[] args) throws Exception {
-		FileServerJMS server = null;
+		FileServer server = null;
 		try {
 			long wait = 10000000;
-			server = new FileServerJMS(args[0]);
+			server = new FileServer(args[0]);
 			Thread.sleep(wait);
 		} catch (Exception e) {
 			System.err.println(e);
